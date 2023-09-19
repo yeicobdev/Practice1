@@ -4,6 +4,7 @@
 
 #ifndef PRACTICE1_VDINAMICO_H
 #define PRACTICE1_VDINAMICO_H
+#include <algorithm>
 template <class T>
 class VDinamico{
     T* mem=nullptr;
@@ -14,8 +15,20 @@ public:
     VDinamico<T>(const VDinamico<T>& origen);
     VDinamico<T>(const VDinamico<T>& origen,unsigned int posInicial,unsigned int numElementos);
     VDinamico<T>& operator=(const VDinamico<T>& origen);
+    VDinamico<T>& operator[](unsigned int pos);
+    ~VDinamico<T>();
 
             };
+
+template<class T>
+VDinamico<T>::~VDinamico<T>() {
+delete[] mem;
+}
+
+template<class T>
+VDinamico<T>& VDinamico<T>::operator[](unsigned int pos) {
+    return mem[pos];
+}
 
 template<class T>
 VDinamico<T>& VDinamico<T>::operator=(const VDinamico<T> &origen) {
