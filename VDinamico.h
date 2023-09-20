@@ -19,16 +19,12 @@ public:
     void ordenar();
     void ordenarRev();
     int getTam()const;
-    void swap(T a,T b);
+
 
             };
 
-template<class T>
-void VDinamico<T>::swap(T a, T b) {
-    T aux=a;
-    a=b;
-    b=aux;
-}
+
+
 
 template<class T>
 int VDinamico<T>::getTam() const {
@@ -40,11 +36,13 @@ void VDinamico<T>::ordenarRev() {
     for(int i=0;i<tam;i++) {
         for (int j = 0; j < tam - 1; j++) {
             if (mem[j] < mem[j + 1]) {
-                swap(mem[j], mem[j + 1]);
-            }
+                T aux=mem[j];
+                mem[j]=mem[j+1];
+                mem[j+1]=aux;}
+        }
         }
     }
-}
+
 
 template<class T>
 void VDinamico<T>::ordenar() {
@@ -56,7 +54,9 @@ void VDinamico<T>::ordenar() {
         {
             if( mem[j] > mem[j+1])
             {
-                swap(mem[j],mem[j+1]);
+                T aux=mem[j];
+                mem[j]=mem[j+1];
+                mem[j+1]=aux;
                 flag = true;
             }
         }
