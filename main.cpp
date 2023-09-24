@@ -1,10 +1,11 @@
 #include <iostream>
 #include "VDinamico.h"
+#include <cstdlib>
 int main() {
     try {
         VDinamico<int> *p = new VDinamico<int>(20);
         for (int i = 0; i < p->getTam(); i++) {
-            (*p)[i] = i;
+            (*p)[i] = rand();
         }
         for (int i = 0; i < p->getTam(); i++) {
             std::cout << (*p)[i] << " ";
