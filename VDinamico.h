@@ -4,11 +4,14 @@
 
 #ifndef PRACTICE1_VDINAMICO_H
 #define PRACTICE1_VDINAMICO_H
+#include <math.h>
 template <class T>
 class VDinamico{
     T* mem=nullptr;
-    long int tam;
+    long int tamFis;
+    long int tamLog;
 public:
+    VDinamico<T>();
     VDinamico<T>(int n);
     VDinamico<T>(const VDinamico<T>& origen);
     VDinamico<T>(const VDinamico<T>& origen,unsigned int posInicial,unsigned int numElementos);
@@ -17,9 +20,25 @@ public:
     void ordenar();
     void ordenarRev();
     int getTam()const;
+    void insertar(const T& dato,unsigned int pos =UINT_MAX);
 
 
             };
+
+int potencia2(int n) {
+    int potencia=2;
+    while (n>potencia){
+        potencia = pow(potencia,2);
+    }
+    return potencia;
+}
+
+
+template<class T>
+VDinamico<T>::VDinamico():tamFis(1),tamLog(0) {
+    filtroMemoriaConstructor(mem);
+}
+
 
 void filtroNConstructor(int n){
     if(n<=0)
@@ -29,29 +48,30 @@ void filtroNConstructor(int n){
 }
 template<class T>
 void filtroMemoriaConstructor(T* p){
-    if(p= nullptr){
+    if(p == nullptr){
         throw std::bad_alloc();
     }
 }
 
 
 template<class T>
-VDinamico<T>::VDinamico(int n):tam(n) {
-    filtroNConstructor(tam);
-    mem=new T[tam];
+VDinamico<T>::VDinamico(int n): tamLog(n){
+    filtroNConstructor(tamLog);
+    tamFis=potencia2(tamLog);
+    mem=new T[tamFis];
     filtroMemoriaConstructor(mem);
 };
 
 
 template<class T>
 int VDinamico<T>::getTam() const {
-    return tam;
+    return tamLog;
 }
 
 template<class T>
 void VDinamico<T>::ordenarRev() {
-    for(int i=0;i<tam;i++) {
-        for (int j = 0; j < tam - 1; j++) {
+    for(int i=0;i<tamLog;i++) {
+        for (int j = 0; j < tamLog - 1; j++) {
             if (mem[j] < mem[j + 1]) {
                 T aux=mem[j];
                 mem[j]=mem[j+1];
@@ -64,10 +84,10 @@ void VDinamico<T>::ordenarRev() {
 template<class T>
 void VDinamico<T>::ordenar() {
     bool flag;
-    for(int i = 0; i<tam; i++)
+    for(int i = 0; i<tamLog; i++)
     {
         flag = false;
-        for(int j = 0; j < tam-i-1; j++)
+        for(int j = 0; j < tamLog-i-1; j++)
         {
             if( mem[j] > mem[j+1])
             {
@@ -86,7 +106,7 @@ void VDinamico<T>::ordenar() {
 
 template<class T>
 T &VDinamico<T>::operator[](int pos) {
-    if((pos>=tam)||(pos<0))
+    if((pos>=tamLog)||(pos<0))
     {
         throw std::invalid_argument("pos invalida");
     }
@@ -98,9 +118,10 @@ VDinamico<T>& VDinamico<T>::operator=(const VDinamico<T> &origen) {
     if(&origen!=this)
     {
         delete[]mem;
-        tam=origen.tam;
-        mem=new T[tam];
-        for(int i=0;i<tam;i++)
+        tamFis=origen.tamFis;
+        tamLog=origen.tamLog;
+        mem=new T[tamFis];
+        for(int i=0;i<tamLog;i++)
         {
             mem[i]=origen.mem[i];
         }
@@ -109,8 +130,8 @@ VDinamico<T>& VDinamico<T>::operator=(const VDinamico<T> &origen) {
 }
 
 template<class T>
-VDinamico<T>::VDinamico(const VDinamico<T> &origen, unsigned int posInicial, unsigned int numElementos) {
-    if((posInicial<0)||(posInicial>numElementos)||posInicial>=origen.tam)
+VDinamico<T>::VDinamico(const VDinamico<T> &origen, unsigned int posInicial, unsigned int numElementos):tamLog(numElementos),tamFis(potencia2(numElementos)) {
+    if((posInicial<0)||(posInicial>numElementos)||posInicial>=origen.tamLog)
     {
         throw std::invalid_argument("Fallo en posInicial");
     }
@@ -126,11 +147,10 @@ VDinamico<T>::VDinamico(const VDinamico<T> &origen, unsigned int posInicial, uns
 }
 
 template<class T>
-VDinamico<T>::VDinamico(const VDinamico<T> &origen) {
-    filtroNConstructor(origen.tam);
-    mem=new T[origen.tam];
+VDinamico<T>::VDinamico(const VDinamico<T> &origen):tamLog(origen.tamLog),tamFis(origen.tamFis) {
+    mem=new T[tamFis];
     filtroMemoriaConstructor(mem);
-    for(int i=0;i<tam;i++)
+    for(int i=0;i<tamLog;i++)
     {
         mem[i]= origen.mem[i];
     }
