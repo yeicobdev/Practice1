@@ -62,14 +62,30 @@ if((n>=tamFis)||(n<0))
 template<class T>
 void VDinamico<T>::insertar(const T &dato, unsigned int pos) {
     posicionValida(pos);
+
     if(pos==UINT_MAX){
+
         mem[tamLog-1]=dato;
         tamLog++;
     }
-    do{
-        mem[pos]=dato;
-        pos++;
-    }while((mem[pos]==nullptr)||(pos<tamLog));
+
+    if(tamFis==tamLog)
+    {
+        T* memaux=new T[ tamFis= potencia2(tamLog)];
+        for(int i=0;i<tamLog;i++)
+        {
+            memaux[i]=mem[i];
+        }
+        delete[] mem;
+        mem=memaux;
+
+    }
+
+    while((mem[pos]==nullptr)&&(pos<tamLog)){
+           pos++;
+    }
+
+    mem[pos]=dato;
 }
 
 
