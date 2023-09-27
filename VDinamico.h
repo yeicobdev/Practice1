@@ -64,9 +64,9 @@ void VDinamico<T>::insertar(const T &dato, unsigned int pos) {
     posicionValida(pos);
 
     if(pos==UINT_MAX){
-
-        mem[tamLog-1]=dato;
         tamLog++;
+        mem[tamLog-1]=dato;
+
     }
 
     if(tamFis==tamLog)
