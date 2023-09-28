@@ -46,13 +46,31 @@ public:
     int getTam()const;
     void insertar(const T& dato,unsigned int pos =UINT_MAX);
     void posicionValida(const int& n);
+    void borrar(unsigned int pos =UINT_MAX);
 
 
             };
 
 template<class T>
+void VDinamico<T>::borrar(unsigned int pos) {
+    if(pos==UINT_MAX){
+        delete mem[tamLog-1];
+        tamLog--;
+        return;
+    }
+    delete mem[pos];
+    mem[pos]=nullptr;
+    for(int i=pos;i<tamLog;i++)
+    {
+        mem[i]=mem[i+1];
+    }
+    tamLog--;
+
+}
+
+template<class T>
 void VDinamico<T>::posicionValida(const int &n) {
-if((n>=tamFis)||(n<0))
+if((n>tamLog)||(n<0))
 {
     throw std::invalid_argument("Pos invalida");
 }
@@ -66,6 +84,7 @@ void VDinamico<T>::insertar(const T &dato, unsigned int pos) {
     if(pos==UINT_MAX){
         tamLog++;
         mem[tamLog-1]=dato;
+        return;
 
     }
 
@@ -79,13 +98,14 @@ void VDinamico<T>::insertar(const T &dato, unsigned int pos) {
         delete[] mem;
         mem=memaux;
 
+
     }
 
-    while((mem[pos]==nullptr)&&(pos<tamLog)){
-           pos++;
-    }
+
 
     mem[pos]=dato;
+    tamLog++;
+
 }
 
 
@@ -93,7 +113,9 @@ void VDinamico<T>::insertar(const T &dato, unsigned int pos) {
 
 template<class T>
 VDinamico<T>::VDinamico():tamFis(1),tamLog(0) {
+    mem=new T[tamFis];
     filtroMemoriaConstructor(mem);
+
 }
 
 
