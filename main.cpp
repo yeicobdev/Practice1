@@ -1,6 +1,5 @@
 #include "Aeropuerto.h"
 #include "VDinamico.h"
-#include <cstdlib>
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -23,7 +22,7 @@ VDinamico<Aeropuerto> aeropuertos=VDinamico<Aeropuerto>();
 
         clock_t t_ini = clock();
 
-        while ( getline(is, fila ) ){
+        while (( getline(is, fila ) )&&(contador<30)){
 
             if (fila!="") {
 
@@ -58,6 +57,25 @@ VDinamico<Aeropuerto> aeropuertos=VDinamico<Aeropuerto>();
     } else {
         std::cout << "Error de apertura en archivo" << std::endl;
     }
+    std::cout<<std::endl;
+    std::cout<<std::endl;
+    aeropuertos.ordenarRev();
+    for(int i=0;i<30;i++)
+    {
+        std::cout<<(aeropuertos[i]).getId()<<std::endl;
+    }
+    std::cout<<std::endl;
+    std::cout<<std::endl;
+    aeropuertos.ordenar();
+    for(int i=0;i<30;i++)
+    {
+        std::cout<<(aeropuertos[i]).getId()<<std::endl;
+    }
+    std::cout<<std::endl;
+    std::cout<<std::endl;
+
+
+
 
     return 0;
 
