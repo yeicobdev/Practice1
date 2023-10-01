@@ -14,7 +14,7 @@ int potencia2(int n) {
     {
         throw std::invalid_argument("n invalido");
     }
-    while (n>potencia){
+    while (n>=potencia){
         potencia = pow(potencia,2);
     }
     return potencia;
@@ -34,6 +34,7 @@ class VDinamico{
     T* mem=nullptr;
     long int tamFis;
     long int tamLog;
+    bool vOrdenado=false;
 public:
     VDinamico<T>();
     VDinamico<T>(int n);
@@ -43,13 +44,50 @@ public:
     T& operator[](int pos);
     void ordenar();
     void ordenarRev();
-    int getTam()const;
+    int getTamFis()const;
+    int getTamLog()const;
     void insertar(const T& dato,unsigned int pos =UINT_MAX);
     void posicionValida(const int& n);
     void borrar(unsigned int pos =UINT_MAX);
-
-
+    int busquedaBin(T& dato);
+    ~VDinamico();
             };
+
+
+
+template<class T>
+VDinamico<T>::~VDinamico() {
+delete [] mem;
+}
+
+template<class T>
+int VDinamico<T>::getTamLog() const {
+    return tamLog;
+}
+
+template<class T>
+int VDinamico<T>::busquedaBin(T &dato) {
+    if(!vOrdenado){
+        return -1;
+    }
+    int topeArriba=tamLog-1;
+    int topeAbajo=0;
+    int centro;
+    while (topeAbajo<=topeArriba){
+        centro=(topeArriba+topeAbajo)/2;
+        if(mem[centro]==dato){
+            dato=mem[centro];
+            return centro;
+        }
+        if(dato<mem[centro]){
+            topeArriba=centro-1;
+        }
+        else {
+            topeAbajo = centro + 1;
+        }
+    }
+    return -1;
+}
 
 template<class T>
 void VDinamico<T>::borrar(unsigned int pos) {
@@ -131,8 +169,8 @@ VDinamico<T>::VDinamico(int n): tamLog(n){
 
 
 template<class T>
-int VDinamico<T>::getTam() const {
-    return tamLog;
+int VDinamico<T>::getTamFis() const {
+    return tamFis;
 }
 
 template<class T>
@@ -169,6 +207,7 @@ void VDinamico<T>::ordenar() {
             break;
         }
     }
+    vOrdenado=true;
 }
 
 template<class T>
