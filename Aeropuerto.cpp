@@ -103,3 +103,11 @@ bool Aeropuerto::operator>(const Aeropuerto &otro) {
 bool Aeropuerto::operator>=(const Aeropuerto &otro) {
     return (id>=otro.id);
 }
+
+std::string Aeropuerto::getContinente() const {
+    return continente;
+}
+
+std::string Aeropuerto::getIsoPais() const {
+    return iso_pais;
+}

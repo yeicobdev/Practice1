@@ -22,7 +22,7 @@ VDinamico<Aeropuerto> aeropuertos=VDinamico<Aeropuerto>();
 
         clock_t t_ini = clock();
 
-        while (( getline(is, fila ) )&&(contador<30)){
+        while (( getline(is, fila ) )&&(contador<5000)){
 
             if (fila!="") {
 
@@ -42,7 +42,7 @@ VDinamico<Aeropuerto> aeropuertos=VDinamico<Aeropuerto>();
                 //  Transformamos la latitud y longitud a float
                 float latitud=std::stof(latitud_str);
                 float longitud=std::stof(longitud_str);
-                aeropuertos.insertar(Aeropuerto(id,ident,tipo,nombre, *(new UTM(latitud,longitud)),continente,iso_pais),contador);
+                aeropuertos.insertar( *new Aeropuerto(id,ident,tipo,nombre, *(new UTM(latitud,longitud)),continente,iso_pais),contador);
 
                 fila="";
                 columnas.clear();
@@ -73,6 +73,20 @@ VDinamico<Aeropuerto> aeropuertos=VDinamico<Aeropuerto>();
     }
     std::cout<<std::endl;
     std::cout<<std::endl;
+    std::cout<<"Tamano fisico antes de borrar: "<<aeropuertos.getTamFis()<<std::endl;
+    std::cout<<"Tamano logico antes de borrar: "<<aeropuertos.getTamLog()<<std::endl;
+    int borrados=0;
+    for( int i=0;i<aeropuertos.getTamLog();i++)
+    {
+        if(aeropuertos[i].getContinente()=="NA")
+        {
+            aeropuertos.borrar(i);
+            borrados++;
+        }
+    }
+    std::cout<<"Tamano fisico despues de borrar: "<<aeropuertos.getTamFis()<<std::endl;
+    std::cout<<"Tamano logico despues de borrar: "<<aeropuertos.getTamLog()<<std::endl;
+
 
 
 

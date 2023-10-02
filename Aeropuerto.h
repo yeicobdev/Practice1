@@ -25,6 +25,8 @@ public:
     std::string getIdent()const;
     std::string getTipo()const;
     std::string getNombre()const;
+    std::string getContinente()const;
+    std::string getIsoPais()const;
     UTM& getPosicion();
     Aeropuerto& setId(const std::string& id);
     Aeropuerto& setIdent(const std::string& ident);

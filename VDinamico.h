@@ -34,7 +34,7 @@ class VDinamico{
     T* mem=nullptr;
     long int tamFis;
     long int tamLog;
-    bool vOrdenado=false;
+
 public:
     VDinamico<T>();
     VDinamico<T>(int n);
@@ -48,7 +48,7 @@ public:
     int getTamLog()const;
     void insertar(const T& dato,unsigned int pos =UINT_MAX);
     void posicionValida(const int& n);
-    void borrar(unsigned int pos =UINT_MAX);
+    T& borrar(unsigned int pos =UINT_MAX);
     int busquedaBin(T& dato);
     ~VDinamico();
             };
@@ -67,12 +67,14 @@ int VDinamico<T>::getTamLog() const {
 
 template<class T>
 int VDinamico<T>::busquedaBin(T &dato) {
-    if(!vOrdenado){
-        return -1;
-    }
     int topeArriba=tamLog-1;
     int topeAbajo=0;
     int centro;
+    centro=(topeArriba+topeAbajo)/2;
+    if(mem[centro]>mem[centro+1])
+    {
+        return -1;
+    }
     while (topeAbajo<=topeArriba){
         centro=(topeArriba+topeAbajo)/2;
         if(mem[centro]==dato){
@@ -90,20 +92,25 @@ int VDinamico<T>::busquedaBin(T &dato) {
 }
 
 template<class T>
-void VDinamico<T>::borrar(unsigned int pos) {
+T& VDinamico<T>::borrar(unsigned int pos) {
+    if(tamLog*3<tamFis){
+        tamFis=tamFis/2;
+        T* vaux = new T[tamFis];
+        for(int i=0;i<tamLog;i++)
+        {
+            vaux[i]=mem[i];
+        }
+        delete [] mem;
+        mem=vaux;
+    }
     if(pos==UINT_MAX){
-        delete mem[tamLog-1];
-        tamLog--;
-        return;
+        return mem[--tamLog];
+    }else{
+     for(int i=pos;i<tamLog;i++){
+         mem[i]=mem[i+1];
+     }
     }
-    delete mem[pos];
-    mem[pos]=nullptr;
-    for(int i=pos;i<tamLog;i++)
-    {
-        mem[i]=mem[i+1];
-    }
-    tamLog--;
-
+return mem[--tamLog];
 }
 
 template<class T>
@@ -118,9 +125,10 @@ if((n>tamLog)||(n<0))
 template<class T>
 void VDinamico<T>::insertar(const T &dato, unsigned int pos) {
     posicionValida(pos);
+    tamLog++;
 
     if(pos==UINT_MAX){
-        tamLog++;
+
         mem[tamLog-1]=dato;
         return;
 
@@ -139,10 +147,11 @@ void VDinamico<T>::insertar(const T &dato, unsigned int pos) {
 
     }
 
-
-
+    for(int i=tamLog-1;i>pos;i--){
+        mem[i+1]=mem[i];
+    }
     mem[pos]=dato;
-    tamLog++;
+
 
 }
 
@@ -207,15 +216,10 @@ void VDinamico<T>::ordenar() {
             break;
         }
     }
-    vOrdenado=true;
 }
 
 template<class T>
 T &VDinamico<T>::operator[](int pos) {
-    if((pos>=tamLog)||(pos<0))
-    {
-        throw std::invalid_argument("pos invalida");
-    }
     return mem[pos];
 }
 
