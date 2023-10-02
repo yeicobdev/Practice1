@@ -20,6 +20,7 @@ public:
     Aeropuerto(const std::string& id,const std::string& ident,const std::string& tipo,const std::string& nombre,
                const UTM& posicion,const std::string& continente,const std::string& iso_pais);
     Aeropuerto(const Aeropuerto& otro);
+    Aeropuerto(const std::string& id);
     ~Aeropuerto();
     std::string getId()const;
     std::string getIdent()const;

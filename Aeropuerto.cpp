@@ -111,3 +111,6 @@ std::string Aeropuerto::getContinente() const {
 std::string Aeropuerto::getIsoPais() const {
     return iso_pais;
 }
+
+Aeropuerto::Aeropuerto(const std::string &id):id(id) {
+}

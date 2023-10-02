@@ -86,8 +86,17 @@ VDinamico<Aeropuerto> aeropuertos=VDinamico<Aeropuerto>();
     }
     std::cout<<"Tamano fisico despues de borrar: "<<aeropuertos.getTamFis()<<std::endl;
     std::cout<<"Tamano logico despues de borrar: "<<aeropuertos.getTamLog()<<std::endl;
-
-
+    std::cout<<std::endl;
+    std::cout<<std::endl;
+    Aeropuerto* a1=new Aeropuerto("345166");
+    std::cout<<"345166: "<<aeropuertos.busquedaBin(*a1)<<std::endl;
+    delete a1;
+    Aeropuerto* a2=new Aeropuerto("9999");
+    std::cout<<"9999: "<<aeropuertos.busquedaBin(*a2)<<std::endl;
+    delete a2;
+    Aeropuerto* a3=new Aeropuerto("0000");
+    std::cout<<"0000: "<<aeropuertos.busquedaBin(*a3)<<std::endl;
+    delete a3;
 
 
 
