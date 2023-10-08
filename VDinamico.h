@@ -248,7 +248,7 @@ VDinamico<T>::VDinamico(const VDinamico<T> &origen, unsigned int posInicial, uns
     if((numElementos>origen.tam)||(numElementos<=0)){
         throw std::invalid_argument("Fallo en numElementos");
     }
-    mem=new T[numElementos];
+    mem=new T[tamFis];
     filtroMemoriaConstructor(mem);
     for(int i=0;i<numElementos;i++)
     {
