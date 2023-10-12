@@ -3,6 +3,8 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+
+/**  @author Jacobo Pancorbo Bianquetti jpb00023@red.ujaen.es      */
 int main() {
 VDinamico<Aeropuerto> aeropuertos=VDinamico<Aeropuerto>();
     std::ifstream is;
