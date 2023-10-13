@@ -45,17 +45,18 @@ public:
 
 template<class T>
 ListaEnlazada<T>::ListaEnlazada(const ListaEnlazada<T> &otro) {
-    Nodo<T>* p=new Nodo(*otro.cabecera);
-    cabecera=p->sig;
-    otro.cabecera=otro.cabecera->sig;
-
-while ((cabecera->sig)!=nullptr){
     cabecera=new Nodo<T>(*otro.cabecera);
-    cabecera=cabecera->sig;
-    otro.cabecera=otro.cabecera->sig;
+    Nodo<T>* p=cabecera;
+    Nodo<T>* a=otro.cabecera;
+
+
+while (a->sig!=nullptr){
+    p->sig=new Nodo<T>(*a->sig);
+    p=p->sig;
+    a=a->sig;
 }
-cola=cabecera;
-cabecera =p;
+cola=p;
+
 }
 
 
