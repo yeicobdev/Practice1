@@ -15,8 +15,13 @@ public:
 
     Nodo(T &adato,Nodo* asig=nullptr);
     Nodo(const Nodo& otro);
+    Nodo(const T& dato);
     ~Nodo();
 };
+
+template<class T>
+Nodo<T>::Nodo(const T &dato):dato(dato) {
+}
 
 template<class T>
 Nodo<T>::Nodo(const Nodo &otro):dato(otro.dato),sig(otro.sig) {
@@ -39,21 +44,57 @@ private:
 public:
     ListaEnlazada<T>();
     ListaEnlazada<T>(const ListaEnlazada<T>& otro);
+    ~ListaEnlazada();
+    ListaEnlazada<T>& operator=(ListaEnlazada<T>& otro);
 
 
 };
 
 template<class T>
+ListaEnlazada<T> &ListaEnlazada<T>::operator=(ListaEnlazada<T> &otro) {
+    Nodo<T>* w=cabecera;
+    while (w){
+        cabecera=cabecera->sig;
+        delete w;
+        w=cabecera;
+
+    }
+    cabecera=new Nodo<T>(*otro.cabecera->dato);
+    Nodo<T>* p=cabecera;
+    Nodo<T>* a=otro.cabecera;
+
+
+    while (a->sig!=nullptr){
+        p->sig=new Nodo<T>(*a->sig->dato);
+        p=p->sig;
+        a=a->sig;
+    }
+    cola=p;
+    return (*this);
+}
+
+template<class T>
+ListaEnlazada<T>::~ListaEnlazada() {
+    Nodo<T>* p=cabecera;
+    while (p){
+        cabecera=cabecera->sig;
+        delete p;
+        p=cabecera;
+
+    }
+}
+
+template<class T>
 ListaEnlazada<T>::ListaEnlazada(const ListaEnlazada<T> &otro) {
-    cabecera=new Nodo<T>(*otro.cabecera);
+    cabecera=new Nodo<T>(*otro.cabecera->dato);
     Nodo<T>* p=cabecera;
     Nodo<T>* a=otro.cabecera;
 
 
 while (a->sig!=nullptr){
-    p->sig=new Nodo<T>(*a->sig);
-    p=p->sig;
-    a=a->sig;
+        p->sig=new Nodo<T>(*a->sig->dato);
+        p=p->sig;
+        a=a->sig;
 }
 cola=p;
 
