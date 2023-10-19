@@ -66,6 +66,8 @@ while(!iteradorPrueba->fin())
     std::cout<<iteradorPrueba->dato()<<" ";
     iteradorPrueba->siguiente();
 }
+delete listaPrueba;
+delete iteradorPrueba;
 
     return 0;
 

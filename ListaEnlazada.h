@@ -316,7 +316,7 @@ ListaEnlazada<T>::~ListaEnlazada() {
         p=cabecera;
 
     }
-    delete(*this);
+
 }
 
 template<class T>
