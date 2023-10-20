@@ -4,13 +4,13 @@
 
 #include "Aeropuerto.h"
 
-Aeropuerto::Aeropuerto(const std::string &id, const std::string &ident, const std::string &tipo,
+Aeropuerto::Aeropuerto(const std::string &id, const std::string &iata, const std::string &tipo,
                        const std::string &nombre, const UTM &posicion, const std::string &continente,
-                       const std::string &iso_pais):id(id),ident(ident),tipo(tipo),nombre(nombre)
+                       const std::string &iso_pais):id(id),iata(iata),tipo(tipo),nombre(nombre)
                        ,posicion(posicion),continente(continente),iso_pais(iso_pais) {
 }
 
-Aeropuerto::Aeropuerto(const Aeropuerto &otro):id(otro.id),ident(otro.ident),tipo(otro.tipo),
+Aeropuerto::Aeropuerto(const Aeropuerto &otro):id(otro.id),iata(otro.iata),tipo(otro.tipo),
 nombre(otro.nombre),posicion(otro.posicion),continente(otro.continente),iso_pais(otro.iso_pais) {
 }
 
@@ -22,8 +22,8 @@ std::string Aeropuerto::getId() const {
     return id;
 }
 
-std::string Aeropuerto::getIdent() const {
-    return ident;
+std::string Aeropuerto::getIata() const {
+    return iata;
 }
 
 std::string Aeropuerto::getTipo() const {
@@ -43,8 +43,8 @@ Aeropuerto &Aeropuerto::setId(const std::string &id) {
     return *this;
 }
 
-Aeropuerto &Aeropuerto::setIdent(const std::string &ident) {
-    this->ident=ident;
+Aeropuerto &Aeropuerto::setIata(const std::string &iata) {
+    this->iata=iata;
     return *this;
 }
 
@@ -75,7 +75,7 @@ Aeropuerto &Aeropuerto::setIsoPais(const std::string &iso_pais) {
 
 Aeropuerto &Aeropuerto::operator=(const Aeropuerto &otro) {
     this->id=otro.id;
-    this->ident=otro.ident;
+    this->iata=otro.iata;
     this->tipo=otro.tipo;
     this->nombre=otro.nombre;
     this->posicion=otro.posicion;

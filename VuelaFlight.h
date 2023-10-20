@@ -10,7 +10,12 @@
 #include "Ruta.h"
 
 class VuelaFlight {
-
+private:
+    VDinamico<Aeropuerto>* aereopuertos;
+    ListaEnlazada<Ruta>* rutas;
+public:
+    VuelaFlight();
+    ~VuelaFlight();
 };
 
 

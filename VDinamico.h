@@ -5,9 +5,10 @@
 #ifndef PRACTICE1_VDINAMICO_H
 #define PRACTICE1_VDINAMICO_H
 #include <math.h>
+#include <iostream>
 
 
-
+inline
 int potencia2(int n) {
     int potencia=2;
     if(n<=0)
