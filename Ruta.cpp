@@ -4,7 +4,7 @@
 
 #include "Ruta.h"
 
-Ruta::Ruta(const std::string aerolin, Aeropuerto *ori, Aeropuerto *des):aerolinea(aerolin),origin(ori)
+Ruta::Ruta(const std::string& aerolin, Aeropuerto *ori, Aeropuerto *des):aerolinea(aerolin),origin(ori)
 ,destination(des) {
 }
 
@@ -40,3 +40,5 @@ Ruta &Ruta::setDestination(Aeropuerto *destino) {
     this->destination=destino;
     return (*this);
 }
+
+

@@ -14,7 +14,7 @@ private:
     Aeropuerto* destination;
 public:
     Ruta()=default;
-    Ruta(const std::string aerolin,Aeropuerto* ori,Aeropuerto* des);
+    Ruta(const std::string& aerolin,Aeropuerto* ori,Aeropuerto* des);
     Ruta(const Ruta& otro);
     ~Ruta();
     std::string getAerolinea();
@@ -23,6 +23,7 @@ public:
     Ruta& setAerolinea(const std::string& aerolin);
     Ruta& setOrigen(Aeropuerto* origen);
     Ruta& setDestination(Aeropuerto* destino);
+
 
 
 

@@ -146,7 +146,7 @@ ListaEnlazada<T> &ListaEnlazada<T>::concatena(ListaEnlazada<T> &l) {
 template<class T>
 int ListaEnlazada<T>::tam() {
     int toret=0;
-    Iterador<int>* i= new Iterador(cabecera);
+    Iterador<T>* i= new Iterador(cabecera);
     while (!i->fin()){
         toret++;
         i->siguiente();

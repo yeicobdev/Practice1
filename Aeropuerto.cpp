@@ -85,23 +85,23 @@ Aeropuerto &Aeropuerto::operator=(const Aeropuerto &otro) {
 }
 
 bool Aeropuerto::operator==(const Aeropuerto &otro) {
-return (id==otro.id);
+return (iata==otro.iata);
 }
 
 bool Aeropuerto::operator<(const Aeropuerto &otro) {
-    return (id<otro.id);
+    return (iata<otro.iata);
 }
 
 bool Aeropuerto::operator<=(const Aeropuerto &otro) {
-    return (id<=otro.id);
+    return (iata<=otro.iata);
 }
 
 bool Aeropuerto::operator>(const Aeropuerto &otro) {
-    return (id>otro.id);
+    return (iata>otro.iata);
 }
 
 bool Aeropuerto::operator>=(const Aeropuerto &otro) {
-    return (id>=otro.id);
+    return (iata>=otro.iata);
 }
 
 std::string Aeropuerto::getContinente() const {
@@ -112,5 +112,5 @@ std::string Aeropuerto::getIsoPais() const {
     return iso_pais;
 }
 
-Aeropuerto::Aeropuerto(const std::string &id):id(id) {
+Aeropuerto::Aeropuerto(const std::string &iata2):iata(iata2){
 }
