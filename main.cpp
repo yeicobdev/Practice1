@@ -101,7 +101,7 @@ VuelaFlight* center=new VuelaFlight();
 
         clock_t t_ini = clock();
 
-        while ( (getline(is1, fila1 ))&&cont1<10000) {
+        while (getline(is1, fila1 )) {
 
             //Â¿Se ha leÃ­do una nueva fila?
             if (fila1!="") {
@@ -125,7 +125,7 @@ VuelaFlight* center=new VuelaFlight();
 
                 fila1="";
                 columnas1.clear();
-                center->getAeropuertos()->insertar(*(new Aeropuerto(id,iata,tipo,nombre,(*new UTM(latitud,longitud)),continente,iso_pais)),cont1);
+                center->getAeropuertos().insertar(*(new Aeropuerto(id,iata,tipo,nombre,(*new UTM(latitud,longitud)),continente,iso_pais)),cont1);
 
             }
             cont1++;
@@ -134,18 +134,18 @@ VuelaFlight* center=new VuelaFlight();
         is1.close();
 
         std::cout << "Tiempo lectura: " << ((clock() - t_ini) / (float) CLOCKS_PER_SEC) << " segs." << std::endl;
-        std::cout<< "Tamano Fisico: "<< center->getAeropuertos()->getTamFis()<<std::endl;
-        std::cout<< "Tamano Logico: "<< center->getAeropuertos()->getTamLog()<<std::endl;
+        std::cout<< "Tamano Fisico: "<< center->getAeropuertos().getTamFis()<<std::endl;
+        std::cout<< "Tamano Logico: "<< center->getAeropuertos().getTamLog()<<std::endl;
     } else {
         std::cout << "Error de apertura en archivo" << std::endl;
     }
 
     //ordenar segun codigo iata
-    center->getAeropuertos()->ordenar();
+    center->getAeropuertos().ordenar();
     std::cout<<"Vector ordenado: "<<std::endl;
 
     for(int i=0;i<40;i++){
-       std::cout<<center->getAeropuertos()->operator[](i).getIata()<<" ";
+       std::cout<<center->getAeropuertos().operator[](i).getIata()<<" ";
     }
 std::cout<<std::endl;
 
@@ -170,7 +170,7 @@ std::cout<<std::endl;
 
         clock_t t_ini = clock();
 
-        while ( (getline(is2, fila2 ))&&cont2<10000) {
+        while (getline(is2, fila2 )) {
 
             //Â¿Se ha leÃ­do una nueva fila?
             if (fila2!="") {
@@ -186,7 +186,7 @@ std::cout<<std::endl;
 
                 fila2="";
                 columnas2.clear();
-                center->getRutas()->insertaInicio(*(new Ruta(iatarut,new Aeropuerto(aero1),new Aeropuerto(aero2))));
+                center->getRutas().insertaInicio(*(new Ruta(iatarut,new Aeropuerto(aero1),new Aeropuerto(aero2))));
 
             }
             cont2++;
@@ -199,9 +199,9 @@ std::cout<<std::endl;
     } else {
         std::cout << "Error de apertura en archivo" << std::endl;
     }
-    std::cout<<"Cabecera: "<<center->getRutas()->getCabecera()->dato.getAerolinea()<<std::endl;
-    std::cout<<"Cola: "<<center->getRutas()->getCola()->dato.getAerolinea()<<std::endl;
-    std::cout<<"Numero de nodos: "<<center->getRutas()->tam()<<std::endl;
+    std::cout<<"Cabecera: "<<center->getRutas().getCabecera()->dato.getAerolinea()<<std::endl;
+    std::cout<<"Cola: "<<center->getRutas().getCola()->dato.getAerolinea()<<std::endl;
+    std::cout<<"Numero de nodos: "<<center->getRutas().tam()<<std::endl;
 
     std::cout<<std::endl;
     std::cout<<std::endl;
@@ -209,15 +209,13 @@ std::cout<<std::endl;
     std::cout<<std::endl;
     std::cout<<std::endl;
     std::cout<<"Conectamos todos los aereopuertos que se pueda"<<std::endl;
-    center->conecta();
-    std::cout<<center->getconectados()->getCabecera()->dato.getOrigen()->getIata()<<std::endl;
-    std::cout<<center->getconectados()->getCabecera()->dato.getDestination()->getIata()<<std::endl;
+
     std::cout<<std::endl;
-    std::cout<<"Rutas entre NUP y ATT:"<<std::endl;
-    int NUPpos=center->getAeropuertos()->busquedaBin(*center->getconectados()->getCabecera()->dato.getOrigen());
-    int ATTpos=center->getAeropuertos()->busquedaBin(*center->getconectados()->getCabecera()->dato.getDestination());
-    Aeropuerto airport1=center->getAeropuertos()->operator[](NUPpos);
-    Aeropuerto airport2=center->getAeropuertos()->operator[](ATTpos);
+    std::cout<<"Rutas entre BCN y IST:"<<std::endl;
+    int BCNpos=center->getAeropuertos().busquedaBin(*new Aeropuerto("BCN"));
+    int ISTpos=center->getAeropuertos().busquedaBin(*new Aeropuerto("IST"));
+    Aeropuerto airport1=center->getAeropuertos().operator[](BCNpos);
+    Aeropuerto airport2=center->getAeropuertos().operator[](ISTpos);
     std::cout<<center->buscaRutasOriDes(airport1,airport2).getAerolinea()<<std::endl;
 
     std::cout<<std::endl;

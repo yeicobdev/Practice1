@@ -6,6 +6,7 @@
 #define PRACTICE1_VDINAMICO_H
 #include <math.h>
 #include <iostream>
+#include <algorithm>
 
 
 inline
@@ -16,7 +17,7 @@ int potencia2(int n) {
         throw std::invalid_argument("n invalido");
     }
     while (n>=potencia){
-        potencia = pow(potencia,2);
+        potencia = potencia*2;
     }
     return potencia;
 }
@@ -198,25 +199,7 @@ void VDinamico<T>::ordenarRev() {
 
 template<class T>
 void VDinamico<T>::ordenar() {
-    bool flag;
-    for(int i = 0; i<tamLog; i++)
-    {
-        flag = false;
-        for(int j = 0; j < tamLog-i-1; j++)
-        {
-            if( mem[j] > mem[j+1])
-            {
-                T aux=mem[j];
-                mem[j]=mem[j+1];
-                mem[j+1]=aux;
-                flag = true;
-            }
-        }
-        if(!flag)
-        {
-            break;
-        }
-    }
+  std::sort(mem,mem+tamLog);
 }
 
 template<class T>

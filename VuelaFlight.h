@@ -11,17 +11,15 @@
 
 class VuelaFlight {
 private:
-    VDinamico<Aeropuerto>* aereopuertos;
-    ListaEnlazada<Ruta>* rutas;
-    ListaEnlazada<Ruta>* rutasConectadas;
+    VDinamico<Aeropuerto> aereopuertos;
+    ListaEnlazada<Ruta> rutas;
+
 public:
     VuelaFlight();
-    VDinamico<Aeropuerto>* getAeropuertos();
-    ListaEnlazada<Ruta>* getRutas();
-    VuelaFlight& setAeropuertos(VDinamico<Aeropuerto>* a);
-    VuelaFlight& setRutas(ListaEnlazada<Ruta>* r);
-    void conecta();
-    ListaEnlazada<Ruta>* getconectados();
+    VDinamico<Aeropuerto>& getAeropuertos();
+    ListaEnlazada<Ruta>& getRutas();
+    VuelaFlight& setAeropuertos(VDinamico<Aeropuerto>& a);
+    VuelaFlight& setRutas(ListaEnlazada<Ruta>& r);
     Ruta& buscaRutasOriDes(Aeropuerto& air1,Aeropuerto& air2);
     ListaEnlazada<Ruta>& rutasOrigen(const Aeropuerto& air1);
     VDinamico<Aeropuerto>& buscarAeropuertoPais(const std::string& pais);
