@@ -208,9 +208,6 @@ std::cout<<std::endl;
     std::cout<<std::endl;
     std::cout<<std::endl;
     std::cout<<std::endl;
-    std::cout<<"Conectamos todos los aereopuertos que se pueda"<<std::endl;
-
-    std::cout<<std::endl;
     std::cout<<"Rutas entre BCN y IST:"<<std::endl;
     int BCNpos=center->getAeropuertos().busquedaBin(*new Aeropuerto("BCN"));
     int ISTpos=center->getAeropuertos().busquedaBin(*new Aeropuerto("IST"));

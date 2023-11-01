@@ -49,12 +49,29 @@ public:
     int getTamFis()const;
     int getTamLog()const;
     void insertar(const T& dato,unsigned int pos =UINT_MAX);
+    void inserta(const T& dato);
     void posicionValida(const int& n);
     T& borrar(unsigned int pos =UINT_MAX);
     int busquedaBin(T& dato);
     ~VDinamico();
             };
 
+template<class T>
+void VDinamico<T>::inserta(const T &dato) {
+    if(tamFis==tamLog)
+    {
+        T* memaux=new T[ tamFis= potencia2(tamLog)];
+        for(int i=0;i<tamLog;i++)
+        {
+            memaux[i]=mem[i];
+        }
+        delete[] mem;
+        mem=memaux;
+
+
+    }
+    mem[tamLog++]=dato;
+}
 
 
 template<class T>
@@ -126,7 +143,6 @@ if((n>tamLog)||(n<0))
 
 template<class T>
 void VDinamico<T>::insertar(const T &dato, unsigned int pos) {
-    posicionValida(pos);
     tamLog++;
 
     if(pos==UINT_MAX){
