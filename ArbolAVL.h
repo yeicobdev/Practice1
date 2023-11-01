@@ -7,19 +7,18 @@
 #include "VDinamico.h"
 
 template <typename T>
-class Nodo{
+class NodoAVL{
 public:
-    Nodo<T> *izq, *der;
+    NodoAVL<T> *izq, *der;
     T dato;
     char bal;
-
-    Nodo(T& ele);
+    NodoAVL(T& ele);
 };
 
 
 
 template<typename T>
-Nodo<T>::Nodo(T &ele):izq(nullptr),der(nullptr),bal(0),dato(ele) {
+NodoAVL<T>::NodoAVL(T &ele): izq(nullptr),der(nullptr),bal(0),dato(ele) {
 }
 
 
@@ -29,20 +28,20 @@ Nodo<T>::Nodo(T &ele):izq(nullptr),der(nullptr),bal(0),dato(ele) {
 template <typename T>
 class Avl{
 private:
-    Nodo<T>* replicaPreorden(Nodo<T>*&a,Nodo<T>*b);
-    void borradoPostorden(Nodo<T>*& a);
-    void rotIzqda(Nodo<T>* &p);
-    void rotDecha(Nodo<T>* &p);
-    int inserta(Nodo<T>* &c,T& dato);
-    void recorridoInorden(VDinamico<T*>& v,Nodo<T>* &p);
-    void contarElementos(Nodo<T>*& n,int& a);
-    Nodo<T>* buscaClave(T& ele,Nodo<T> *&p);
-    void buscaIterando(T& ele,Nodo<T> *&p,Nodo<T>*& retorno);
-    void alturaRec(int& cont,int& alt,Nodo<T>* &p);
+    NodoAVL<T>* replicaPreorden(NodoAVL<T>*&a,NodoAVL<T>*b);
+    void borradoPostorden(NodoAVL<T>*& a);
+    void rotIzqda(NodoAVL<T>* &p);
+    void rotDecha(NodoAVL<T>* &p);
+    int inserta(NodoAVL<T>* &c,T& dato);
+    void recorridoInorden(VDinamico<T*>& v,NodoAVL<T>* &p);
+    void contarElementos(NodoAVL<T>*& n,int& a);
+    NodoAVL<T>* buscaClave(T& ele,NodoAVL<T> *&p);
+    void buscaIterando(T& ele,NodoAVL<T> *&p,NodoAVL<T>*& retorno);
+    void alturaRec(int& cont,int& alt,NodoAVL<T>* &p);
 
 
 public:
-    Nodo<T>* raiz;
+    NodoAVL<T>* raiz;
     Avl();
     Avl(const Avl<T>& otro);
     ~Avl();
@@ -61,7 +60,7 @@ public:
 };
 
 template<typename T>
-void Avl<T>::alturaRec(int &cont, int &alt, Nodo<T> *&p) {
+void Avl<T>::alturaRec(int &cont, int &alt, NodoAVL<T> *&p) {
     if(p) {
         cont++;
         alturaRec(cont, alt, p->izq);
@@ -76,7 +75,7 @@ void Avl<T>::alturaRec(int &cont, int &alt, Nodo<T> *&p) {
 
 template<typename T>
 int Avl<T>::altura() {
-    int contador=0;
+    int contador=-1;
     int altura=0;
     alturaRec(contador,altura,raiz);
     return altura;
@@ -84,7 +83,7 @@ int Avl<T>::altura() {
 }
 
 template<typename T>
-void Avl<T>::buscaIterando(T &ele, Nodo<T> *&p,Nodo<T>*& retorno) {
+void Avl<T>::buscaIterando(T &ele, NodoAVL<T> *&p,NodoAVL<T>*& retorno) {
 
 if(p){
     buscaIterando(ele,p->izq,retorno);
@@ -97,14 +96,14 @@ if(p){
 
 template<typename T>
 T *Avl<T>::buscaIt(T &dato) {
-    Nodo<T>* toret= nullptr;
+    NodoAVL<T>* toret= nullptr;
     buscaIterando(dato,raiz,toret);
     return &toret->dato;
 
 }
 
 template<typename T>
-Nodo<T> *Avl<T>::buscaClave(T &ele, Nodo<T> *&p) {
+NodoAVL<T> *Avl<T>::buscaClave(T &ele, NodoAVL<T> *&p) {
     if (!p) {
         return nullptr;
     }
@@ -129,7 +128,7 @@ return (&p->dato);
 }
 
 template<typename T>
-void Avl<T>::contarElementos(Nodo<T> *&n, int& a) {
+void Avl<T>::contarElementos(NodoAVL<T> *&n, int& a) {
 if(n){
     contarElementos(n->izq,a);
     a++;
@@ -145,7 +144,7 @@ int Avl<T>::numElementos() {
 }
 
 template<typename T>
-void Avl<T>::recorridoInorden(VDinamico<T*> &v, Nodo<T> *&p) {
+void Avl<T>::recorridoInorden(VDinamico<T*> &v, NodoAVL<T> *&p) {
     if(p) {
         recorridoInorden(v, p->izq);
         v.inserta(&(p->dato));
@@ -167,11 +166,11 @@ bool Avl<T>::inserta(T &dato) {
 }
 
 template<typename T>
-int Avl<T>::inserta(Nodo<T> *&c, T &dato) {
-    Nodo<T> *p = c;
+int Avl<T>::inserta(NodoAVL<T> *&c, T &dato) {
+    NodoAVL<T> *p = c;
     int deltaH = 0;
     if (!p){
-        p = new Nodo<T>(dato);
+        p = new NodoAVL<T>(dato);
         c = p; deltaH=1;
     }
     else if (dato > p->dato){
@@ -196,8 +195,8 @@ int Avl<T>::inserta(Nodo<T> *&c, T &dato) {
 
 
 template<typename T>
-void Avl<T>::rotDecha(Nodo<T> *&p) {
-    Nodo<T> *q = p, *l;
+void Avl<T>::rotDecha(NodoAVL<T> *&p) {
+    NodoAVL<T> *q = p, *l;
     p = l = q->izq;
     q->izq = l->der;
     l->der = q;
@@ -212,8 +211,8 @@ void Avl<T>::rotDecha(Nodo<T> *&p) {
 }
 
 template<typename T>
-void Avl<T>::rotIzqda(Nodo<T> *&p) {
-    Nodo<T> *q = p, *r;
+void Avl<T>::rotIzqda(NodoAVL<T> *&p) {
+    NodoAVL<T> *q = p, *r;
     p = r = q->der;
     q->der = r->izq;
     r->izq = q;
@@ -237,7 +236,7 @@ Avl<T> &Avl<T>::operator=(Avl<T> &otro) {
 }
 
 template<typename T>
-void Avl<T>::borradoPostorden(Nodo<T> *&a) {
+void Avl<T>::borradoPostorden(NodoAVL<T> *&a) {
 if(a){
     borradoPostorden(a->izq);
     borradoPostorden(a->der);
@@ -251,7 +250,7 @@ Avl<T>::~Avl() {
 }
 
 template<typename T>
-Nodo<T> *Avl<T>::replicaPreorden(Nodo<T> *&a,Nodo<T>*b) {
+NodoAVL<T> *Avl<T>::replicaPreorden(NodoAVL<T> *&a,NodoAVL<T>*b) {
 if(b) {
     a = new Nodo<T>(b->dato);
     replicaPreorden(a->izq, b->izq);

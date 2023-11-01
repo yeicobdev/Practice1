@@ -5,74 +5,9 @@
 
 /**  @author Jacobo Pancorbo Bianquetti jpb00023@red.ujaen.es      */
 int main() {
-    //Prueba 1
-ListaEnlazada<int>* listaPrueba=new ListaEnlazada<int>;
-for(int i=101;i<201;i++){
-    listaPrueba->insertaFin(i);
-}
-for(int i=98;i>0;i--){
-    listaPrueba->insertaInicio(i);
-}
-Iterador<int>* iteradorPrueba=new Iterador<int>(listaPrueba->getCabecera());
-while(iteradorPrueba->dato()!=101){
-    iteradorPrueba->siguiente();
-}
-listaPrueba->inserta(*iteradorPrueba,100);
-iteradorPrueba->setNodo(listaPrueba->getCabecera());
-while(iteradorPrueba->dato()!=98){
-    iteradorPrueba->siguiente();
-}
-listaPrueba->insertaDetras(*iteradorPrueba,99);
-iteradorPrueba->setNodo(listaPrueba->getCabecera());
-std::cout<<"Hacemos las inserciones: "<<std::endl;
-while(!iteradorPrueba->fin())
-{
-    std::cout<<iteradorPrueba->dato()<<" ";
-    iteradorPrueba->siguiente();
-}
-std::cout<<std::endl;
-std::cout<<"Borramos los 10 primeros y los 10 Ultimos datos:"<<std::endl;
-for(int i=0;i<10;i++)
-{
-    listaPrueba->borraInicio();
-}
-for(int i=0;i<10;i++)
-{
-    listaPrueba->borraFinal();
-}
-iteradorPrueba->setNodo(listaPrueba->getCabecera());
-while(!iteradorPrueba->fin())
-{
-    std::cout<<iteradorPrueba->dato()<<" ";
-    iteradorPrueba->siguiente();
-}
-std::cout<<std::endl;
-std::cout<<"Borramos los multiplos de 10:"<<std::endl;
-iteradorPrueba->setNodo(listaPrueba->getCabecera());
-while(!iteradorPrueba->fin()){
-    if(((iteradorPrueba->dato())%10)==0)
-    {
-        listaPrueba->borra(*iteradorPrueba);//mi funcion borra hace que se pase al siguiente nodo automáticamente
-    }else{
-        iteradorPrueba->siguiente();
-    }
 
-}
-iteradorPrueba->setNodo(listaPrueba->getCabecera());
-while(!iteradorPrueba->fin())
-{
-    std::cout<<iteradorPrueba->dato()<<" ";
-    iteradorPrueba->siguiente();
-}
-delete listaPrueba;
-delete iteradorPrueba;
-std::cout<<std::endl;
-std::cout<<std::endl;
-std::cout<<std::endl;
-std::cout<<std::endl;
-std::cout<<std::endl;
 
-//Prueba 2
+
 
 VuelaFlight* center=new VuelaFlight();
 
@@ -139,15 +74,105 @@ VuelaFlight* center=new VuelaFlight();
     } else {
         std::cout << "Error de apertura en archivo" << std::endl;
     }
-
-    //ordenar segun codigo iata
+    //ordenamos el vector
     center->getAeropuertos().ordenar();
-    std::cout<<"Vector ordenado: "<<std::endl;
 
-    for(int i=0;i<40;i++){
-       std::cout<<center->getAeropuertos().operator[](i).getIata()<<" ";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    std::cout<<"Lectura de Aereolineas: "<<std::endl;
+    std::ifstream is3;
+    std::stringstream  columnas3;
+    std::string fila3;
+    int cont3=0;
+
+
+    std::string id2_str="";
+    std::string icao="";
+    std::string nombre2="";
+    std::string pais="";
+    std::string activo_str="";
+
+    unsigned int id2;
+    bool activo;
+
+
+
+    is3.open("C://Users//jacob//OneDrive//Escritorio//EEDD//Practice1//aerolineas_v1.csv"); //carpeta de proyecto
+    if ( is3.good() ) {
+
+        clock_t t_ini = clock();
+
+        while (getline(is3, fila3 )) {
+
+            if (fila3!="") {
+
+                columnas3.str(fila3);
+
+
+                getline(columnas3, id2_str, ';');
+                getline(columnas3,icao,';');
+                getline(columnas3,nombre2,';');
+                getline(columnas3,pais,';');
+                getline(columnas3,activo_str,';');
+
+
+
+                id2=std::stoi(id2_str);
+               if(activo_str=="Y"){
+                   activo=true;
+               }
+
+                if(activo_str=="N"){
+                    activo=false;
+                }
+                fila3="";
+                columnas3.clear();
+                center->getWork().inserta(*(new Aerolinea(id2,icao,nombre2,pais,activo)));
+
+            }
+            cont3++;
+        }
+
+        is3.close();
+
+        std::cout << "Tiempo lectura: " << ((clock() - t_ini) / (float) CLOCKS_PER_SEC) << " segs." << std::endl;
+        std::cout<< "Elementos Arbol: "<< center->getWork().numElementos()<<std::endl;
+        std::cout<< "Altura Arbol: "<< center->getWork().altura()<<std::endl;
+
+    } else {
+        std::cout << "Error de apertura en archivo" << std::endl;
     }
-std::cout<<std::endl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -208,24 +233,13 @@ std::cout<<std::endl;
     std::cout<<std::endl;
     std::cout<<std::endl;
     std::cout<<std::endl;
-    std::cout<<"Rutas entre BCN y IST:"<<std::endl;
-    int BCNpos=center->getAeropuertos().busquedaBin(*new Aeropuerto("BCN"));
-    int ISTpos=center->getAeropuertos().busquedaBin(*new Aeropuerto("IST"));
-    Aeropuerto airport1=center->getAeropuertos().operator[](BCNpos);
-    Aeropuerto airport2=center->getAeropuertos().operator[](ISTpos);
-    std::cout<<center->buscaRutasOriDes(airport1,airport2).getAerolinea()<<std::endl;
 
-    std::cout<<std::endl;
-    std::cout<<"Rutas entre GRX y GB:"<<std::endl;
 
-    Aeropuerto* airport3= new Aeropuerto("GRX");
-    Aeropuerto* airport4= new Aeropuerto("GB");
-    std::cout<<center->buscaRutasOriDes(*airport3,*airport4).getAerolinea()<<std::endl;
-    delete airport3;
-    delete airport4;
 
-    center->addNuevaRuta(*new Ruta("IBE",new Aeropuerto("CDG"),new Aeropuerto("IBE")));
+
     delete center;
+
+
 
 
     return 0;

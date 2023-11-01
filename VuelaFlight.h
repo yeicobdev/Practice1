@@ -6,18 +6,25 @@
 #define PRACTICE1_VUELAFLIGHT_H
 #include "VDinamico.h"
 #include "ListaEnlazada.h"
+#include "ArbolAVL.h"
 #include "Aeropuerto.h"
 #include "Ruta.h"
+#include "Aerolinea.h"
+
+
 
 class VuelaFlight {
 private:
     VDinamico<Aeropuerto> aereopuertos;
     ListaEnlazada<Ruta> rutas;
+    Avl<Aerolinea> work;
+
 
 public:
     VuelaFlight();
     VDinamico<Aeropuerto>& getAeropuertos();
     ListaEnlazada<Ruta>& getRutas();
+    Avl<Aerolinea>& getWork();
     VuelaFlight& setAeropuertos(VDinamico<Aeropuerto>& a);
     VuelaFlight& setRutas(ListaEnlazada<Ruta>& r);
     Ruta& buscaRutasOriDes(Aeropuerto& air1,Aeropuerto& air2);

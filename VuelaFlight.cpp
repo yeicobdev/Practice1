@@ -71,3 +71,7 @@ return (*toret);
 void VuelaFlight::addNuevaRuta(const Ruta &rut) {
 rutas.insertaInicio(rut);
 }
+
+Avl<Aerolinea> &VuelaFlight::getWork() {
+    return work;
+}
