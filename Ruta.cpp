@@ -4,18 +4,18 @@
 
 #include "Ruta.h"
 
-Ruta::Ruta(const std::string& aerolin, Aeropuerto *ori, Aeropuerto *des):aerolinea(aerolin),origin(ori)
+Ruta::Ruta(Aerolinea* aerolin, Aeropuerto *ori, Aeropuerto *des):company(aerolin),origin(ori)
 ,destination(des) {
 }
 
-Ruta::Ruta(const Ruta &otro):aerolinea(otro.aerolinea),origin(otro.origin),destination(otro.destination) {
+Ruta::Ruta(const Ruta &otro):company(otro.company),origin(otro.origin),destination(otro.destination) {
 }
 
 Ruta::~Ruta() {
 }
 
-std::string Ruta::getAerolinea() {
-    return aerolinea;
+Aerolinea* Ruta::getAerolinea() {
+    return company;
 }
 
 Aeropuerto *Ruta::getOrigen() {
@@ -26,8 +26,8 @@ Aeropuerto *Ruta::getDestination() {
     return destination;
 }
 
-Ruta &Ruta::setAerolinea(const std::string &aerolin) {
-    this->aerolinea=aerolin;
+Ruta &Ruta::setAerolinea(Aerolinea* aerolin) {
+    this->company=aerolin;
     return (*this);
 }
 

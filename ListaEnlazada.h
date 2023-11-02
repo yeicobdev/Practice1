@@ -112,7 +112,7 @@ public:
     ListaEnlazada<T>& operator=(ListaEnlazada<T>& otro);
     T& inicio();
     T& fin();
-    void insertaInicio(const T& dato);
+    T* insertaInicio(const T& dato);
     void insertaFin(const T& dato);
     Nodo<T>* getCabecera();
     Nodo<T>* getCola();
@@ -263,14 +263,15 @@ void ListaEnlazada<T>::insertaFin(const T &dato) {
 }
 
 template<class T>
-void ListaEnlazada<T>::insertaInicio(const T &dato) {
+T* ListaEnlazada<T>::insertaInicio(const T &dato) {
     if(cabecera== nullptr){
         cabecera=new Nodo<T>(dato);
         cola=cabecera;
-        return;
+        return &(cabecera->dato);
     }
     Nodo<T>* p=cabecera;
     cabecera=new Nodo<T>(dato,p);
+    return &(cabecera->dato);
 }
 
 

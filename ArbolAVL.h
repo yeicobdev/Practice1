@@ -123,7 +123,7 @@ NodoAVL<T> *Avl<T>::buscaClave(T &ele, NodoAVL<T> *&p) {
 
 template<typename T>
 T *Avl<T>::buscaRec(T &dato) {
-Nodo<T> *p = buscaClave(dato,raiz);
+NodoAVL<T> *p = buscaClave(dato,raiz);
 return (&p->dato);
 }
 

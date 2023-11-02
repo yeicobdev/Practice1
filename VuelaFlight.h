@@ -30,8 +30,10 @@ public:
     Ruta& buscaRutasOriDes(Aeropuerto& air1,Aeropuerto& air2);
     ListaEnlazada<Ruta>& rutasOrigen(const Aeropuerto& air1);
     VDinamico<Aeropuerto>& buscarAeropuertoPais(const std::string& pais);
-    void addNuevaRuta(const Ruta& rut);
-
+    void addNuevaRuta(Aeropuerto* air1,Aeropuerto* air2,Aerolinea* nombre);
+    VuelaFlight& anadeConecta(const std::string& ruta,const std::string& air1,const std::string& air2 );
+    Aerolinea& buscaAereolinea(const std::string& icaoAerolinea);
+    VDinamico<Aerolinea>& buscaAereolineasActivas();
     ~VuelaFlight();
 };
 
