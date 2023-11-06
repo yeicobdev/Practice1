@@ -31,7 +31,7 @@ public:
     std::string getNombre();
     std::string getPais();
     bool getActivo();
-    VDinamico<Ruta*>& getAerorutes();
+    VDinamico<Ruta*>* getAerorutes();
     Aerolinea& setId(const unsigned int& id);
     Aerolinea& setIcao(const std::string& icao);
     Aerolinea& setNombre(const std::string& nombre);
@@ -40,8 +40,8 @@ public:
     bool operator==(Aerolinea& otra);
     bool operator<(Aerolinea& otra);
     bool operator>(Aerolinea& otra);
-    VDinamico<Aeropuerto>& getAeropuertosOrig();
-    VDinamico<Ruta>& getRutas(const std::string& iataAeropuerto);
+    VDinamico<Aeropuerto*>* getAeropuertosOrig();
+    VDinamico<Ruta*>* getRutas(const std::string& iataAeropuerto);
     void muestraInfo();
 
 };

@@ -27,13 +27,13 @@ public:
     Avl<Aerolinea>& getWork();
     VuelaFlight& setAeropuertos(VDinamico<Aeropuerto>& a);
     VuelaFlight& setRutas(ListaEnlazada<Ruta>& r);
-    Ruta& buscaRutasOriDes(Aeropuerto& air1,Aeropuerto& air2);
-    ListaEnlazada<Ruta>& rutasOrigen(const Aeropuerto& air1);
-    VDinamico<Aeropuerto>& buscarAeropuertoPais(const std::string& pais);
+    Ruta* buscaRutasOriDes(Aeropuerto& air1,Aeropuerto& air2);
+    ListaEnlazada<Ruta*> rutasOrigen(const Aeropuerto& air1);
+    VDinamico<Aeropuerto*> buscarAeropuertoPais(const std::string& pais);
     void addNuevaRuta(Aeropuerto* air1,Aeropuerto* air2,Aerolinea* nombre);
     VuelaFlight& anadeConecta(const std::string& ruta,const std::string& air1,const std::string& air2 );
-    Aerolinea& buscaAereolinea(const std::string& icaoAerolinea);
-    VDinamico<Aerolinea>& buscaAereolineasActivas();
+    Aerolinea* buscaAereolinea(const std::string& icaoAerolinea);
+    VDinamico<Aerolinea*>* buscaAereolineasActivas();
     ~VuelaFlight();
 };
 

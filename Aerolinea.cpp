@@ -76,27 +76,27 @@ bool Aerolinea::operator>(Aerolinea &otra) {
 Aerolinea::Aerolinea(const std::string &icao) : icao(icao) {
 }
 
-VDinamico<Ruta *> &Aerolinea::getAerorutes() {
-    return aerorutes;
+VDinamico<Ruta *> *Aerolinea::getAerorutes() {
+    return &aerorutes;
 }
 
-VDinamico<Aeropuerto> &Aerolinea::getAeropuertosOrig() {
-    VDinamico<Aeropuerto> *toret = new VDinamico<Aeropuerto>();
+VDinamico<Aeropuerto*>* Aerolinea::getAeropuertosOrig() {
+    VDinamico<Aeropuerto*> *toret = new VDinamico<Aeropuerto*>();
     for (int i = 0; i < aerorutes.getTamLog(); i++) {
-        toret->inserta(*(aerorutes.operator[](i)->getOrigen()));
+        toret->inserta(aerorutes.operator[](i)->getOrigen());
     }
-    return *toret;
+    return toret;
 }
 
-VDinamico<Ruta> &Aerolinea::getRutas(const std::string &iataAeropuerto) {
-    VDinamico<Ruta> *toret = new VDinamico<Ruta>();
+VDinamico<Ruta*> *Aerolinea::getRutas(const std::string &iataAeropuerto) {
+    VDinamico<Ruta*>* toret = new VDinamico<Ruta*>();
     for (int i = 0; i < aerorutes.getTamLog(); i++) {
         if ((aerorutes.operator[](i)->getOrigen()->getIata() == iataAeropuerto) ||
             (aerorutes.operator[](i)->getDestination()->getIata() == iataAeropuerto)) {
-            toret->inserta(*(aerorutes.operator[](i)));
+            toret->inserta((aerorutes.operator[](i)));
         }
     }
-    return *toret;
+    return toret;
 }
 
 void Aerolinea::muestraInfo() {

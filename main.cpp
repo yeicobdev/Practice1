@@ -195,16 +195,16 @@ int main() {
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout<<"Prueba 2"<<std::endl;
-    center->buscaAereolinea("RYR").muestraInfo();
+    center->buscaAereolinea("RYR")->muestraInfo();
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout<<"Prueba 3"<<std::endl;
-    VDinamico<Aerolinea> aerolineasActivas = center->buscaAereolineasActivas();
-    for (int i = 0; i < aerolineasActivas.getTamLog(); i++) {
-        std::cout << aerolineasActivas.operator[](i).getIcao() << " ";
+    VDinamico<Aerolinea*>* aerolineasActivas = center->buscaAereolineasActivas();
+    for (int i = 0; i < aerolineasActivas->getTamLog(); i++) {
+        std::cout << aerolineasActivas->operator[](i)->getIcao() << " ";
     }
     std::cout << std::endl;
     std::cout << std::endl;
@@ -212,8 +212,8 @@ int main() {
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout<<"Prueba 4"<<std::endl;
-   for(int i=0;i< center->buscaAereolinea("IBE").getAeropuertosOrig().getTamLog();i++){
-       std::cout<<center->buscaAereolinea("IBE").getAeropuertosOrig().operator[](i).getIata()<<" ";
+   for(int i=0;i< center->buscaAereolinea("IBE")->getAeropuertosOrig()->getTamLog();i++){
+       std::cout<<center->buscaAereolinea("IBE")->getAeropuertosOrig()->operator[](i)->getIata()<<" ";
    }
 
     std::cout << std::endl;
@@ -222,10 +222,10 @@ int main() {
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout<<"Prueba 5"<<std::endl;
-for(int i=0;i<center->buscaAereolinea("IBE").getRutas("AGP").getTamLog();i++){
-    std::cout<<center->buscaAereolinea("IBE").getRutas("AGP").operator[](i).getAerolinea()->getNombre()
-    <<" | "<<center->buscaAereolinea("IBE").getRutas("AGP").operator[](i).getOrigen()->getIata()
-    <<" | "<<center->buscaAereolinea("IBE").getRutas("AGP").operator[](i).getDestination()->getIata()<<std::endl;
+for(int i=0;i<center->buscaAereolinea("IBE")->getRutas("AGP")->getTamLog();i++){
+    std::cout<<center->buscaAereolinea("IBE")->getRutas("AGP")->operator[](i)->getAerolinea()->getNombre()
+    <<" | "<<center->buscaAereolinea("IBE")->getRutas("AGP")->operator[](i)->getOrigen()->getIata()
+    <<" | "<<center->buscaAereolinea("IBE")->getRutas("AGP")->operator[](i)->getDestination()->getIata()<<std::endl;
 }
 
     delete center;
